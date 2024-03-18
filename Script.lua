@@ -1,4 +1,4 @@
-local ShindoBoosterV1 = loadstring(game:HttpGet('https://t.ly/ShindoBoosterV1'))()
+local ShindoBoosterV1 = loadstring(game:HttpGet('https://raw.githubusercontent.com/Maya024/ShindoBoosterV1/main/GUI.lua'))()
 
 local Window = ShindoBoosterV1:CreateWindow({
     Name = "Shindo Life booster V1",
