@@ -2,9 +2,9 @@
 
 ShindoBoosterV1 Interface Suite
 Update: 1.6
-by Mays (Maya)
+by Mays (Maya) + nikenoez
 
-Mays (Maya) | Designing + Programming
+Mays (Maya) + nikenoez | Designing + Programming
 
 ]]
 
