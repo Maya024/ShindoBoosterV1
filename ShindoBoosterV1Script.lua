@@ -1,3 +1,12 @@
+--[[
+
+ShindoBoosterV1 Interface Suite
+by Mays (Maya)
+
+Mays (Maya) | Designing + Programming
+
+]]
+
 local function createPlayerMenu(players)
     local playerDropdown = Instance.new("ScreenGui")
     playerDropdown.Name = "PlayerDropdownGui"
