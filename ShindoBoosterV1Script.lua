@@ -1,25 +1,17 @@
---[[
-
-ShindoBoosterV1 Interface Suite
-by Mays (Maya)
-
-Mays (Maya) | Designing + Programming
-
-]]
-
 local function createPlayerMenu(players)
+    local playerGui = game.Players.LocalPlayer:WaitForChild("PlayerGui")
     local playerDropdown = Instance.new("ScreenGui")
     playerDropdown.Name = "PlayerDropdownGui"
-    playerDropdown.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui") 
+    playerDropdown.Parent = playerGui
 
-    local playerDropdownFrame = Instance.new("Frame")
-    playerDropdownFrame.Name = "PlayerDropdownFrame"
-    playerDropdownFrame.Size = UDim2.new(0, 200, 0, 30)
-    playerDropdownFrame.Position = UDim2.new(0.5, -100, 0.5, -15)
-    playerDropdownFrame.BackgroundColor3 = Color3.fromRGB(240, 240, 240)
-    playerDropdownFrame.BorderSizePixel = 2
-    playerDropdownFrame.BorderColor3 = Color3.fromRGB(150, 150, 150)
-    playerDropdownFrame.Parent = playerDropdown
+    local dropdownFrame = Instance.new("Frame")
+    dropdownFrame.Name = "DropdownFrame"
+    dropdownFrame.Size = UDim2.new(0, 200, 0, 30)
+    dropdownFrame.Position = UDim2.new(0.5, -100, 0.5, -15)
+    dropdownFrame.BackgroundColor3 = Color3.fromRGB(240, 240, 240)
+    dropdownFrame.BorderSizePixel = 2
+    dropdownFrame.BorderColor3 = Color3.fromRGB(150, 150, 150)
+    dropdownFrame.Parent = playerDropdown
 
     local dropdownLabel = Instance.new("TextLabel")
     dropdownLabel.Name = "DropdownLabel"
@@ -30,18 +22,18 @@ local function createPlayerMenu(players)
     dropdownLabel.BackgroundTransparency = 1
     dropdownLabel.Font = Enum.Font.SourceSansBold
     dropdownLabel.TextSize = 14
-    dropdownLabel.Parent = playerDropdownFrame
+    dropdownLabel.Parent = dropdownFrame
 
-    local dropdown = Instance.new("TextButton")
-    dropdown.Name = "Dropdown"
-    dropdown.Size = UDim2.new(1, 0, 1, 0)
-    dropdown.Position = UDim2.new(0, 0, 1, 0)
-    dropdown.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-    dropdown.BorderSizePixel = 0
-    dropdown.Text = "Click to select"
-    dropdown.TextColor3 = Color3.fromRGB(0, 0, 0)
-    dropdown.TextScaled = true
-    dropdown.Parent = playerDropdownFrame
+    local dropdownButton = Instance.new("TextButton")
+    dropdownButton.Name = "DropdownButton"
+    dropdownButton.Size = UDim2.new(1, 0, 1, 0)
+    dropdownButton.Position = UDim2.new(0, 0, 1, 0)
+    dropdownButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    dropdownButton.BorderSizePixel = 0
+    dropdownButton.Text = "Click to select"
+    dropdownButton.TextColor3 = Color3.fromRGB(0, 0, 0)
+    dropdownButton.TextScaled = true
+    dropdownButton.Parent = dropdownFrame
 
     local dropdownList = Instance.new("Frame")
     dropdownList.Name = "DropdownList"
@@ -51,13 +43,13 @@ local function createPlayerMenu(players)
     dropdownList.BorderSizePixel = 2
     dropdownList.BorderColor3 = Color3.fromRGB(150, 150, 150)
     dropdownList.Visible = false
-    dropdownList.Parent = playerDropdownFrame
+    dropdownList.Parent = dropdownFrame
 
     for _, player in ipairs(players) do
         local dropdownItem = Instance.new("TextButton")
         dropdownItem.Name = player.Name
         dropdownItem.Size = UDim2.new(1, 0, 0, 30)
-        dropdownItem.Position = UDim2.new(0, 0, 0, (30 * #dropdownList:GetChildren()))
+        dropdownItem.Position = UDim2.new(0, 0, 0, 30 * #dropdownList:GetChildren())
         dropdownItem.BackgroundColor3 = Color3.fromRGB(240, 240, 240)
         dropdownItem.BorderSizePixel = 0
         dropdownItem.Text = player.Name
@@ -67,7 +59,7 @@ local function createPlayerMenu(players)
         dropdownItem.Parent = dropdownList
 
         dropdownItem.MouseButton1Click:Connect(function()
-            dropdown.Text = player.Name
+            dropdownButton.Text = player.Name
             dropdownList.Visible = false
 
             getgenv().Nickname = player.Name
@@ -106,25 +98,27 @@ local function createPlayerMenu(players)
         end)
     end
 
-    dropdown.MouseButton1Click:Connect(function()
+    dropdownButton.MouseButton1Click:Connect(function()
         dropdownList.Visible = not dropdownList.Visible
     end)
 
-    local dragging
-    local dragInput
-    local dragStart
-    local startPos
+    local dragging = false
+    local dragInput = nil
+    local dragStart = nil
+    local startPos = nil
 
     local function update(input)
-        local delta = input.Position - dragStart
-        playerDropdownFrame.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+        if dragging then
+            local delta = input.Position - dragStart
+            dropdownFrame.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+        end
     end
 
-    playerDropdownFrame.InputBegan:Connect(function(input)
+    dropdownFrame.InputBegan:Connect(function(input)
         if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
             dragging = true
             dragStart = input.Position
-            startPos = playerDropdownFrame.Position
+            startPos = dropdownFrame.Position
 
             input.Changed:Connect(function()
                 if input.UserInputState == Enum.UserInputState.End then
@@ -134,7 +128,7 @@ local function createPlayerMenu(players)
         end
     end)
 
-    playerDropdownFrame.InputChanged:Connect(function(input)
+    dropdownFrame.InputChanged:Connect(function(input)
         if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
             dragInput = input
         end
@@ -149,7 +143,7 @@ end
 
 getgenv().toggle25 = true
 getgenv().Nickname = "PlayerName"
-repeat wait() until game:GetService("Players").PlayerAdded and getgenv().toggle25 == true
+repeat wait() until game:GetService("Players").LocalPlayer and game:GetService("Players").LocalPlayer.Character
 wait(1.5)
 
 local examplePlayers = game.Players:GetPlayers()
