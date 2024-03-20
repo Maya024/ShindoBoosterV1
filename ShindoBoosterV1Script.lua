@@ -17,9 +17,9 @@ local function createPlayerMenu(players)
     playerDropdownFrame.Name = "PlayerDropdownFrame"
     playerDropdownFrame.Size = UDim2.new(0, 200, 0, 30)
     playerDropdownFrame.Position = UDim2.new(0.5, -100, 0.5, -15)
-    playerDropdownFrame.BackgroundColor3 = Color3.fromRGB(240, 240, 240)
+    playerDropdownFrame.BackgroundColor3 = Color3.fromRGB(100, 100, 100) 
     playerDropdownFrame.BorderSizePixel = 2
-    playerDropdownFrame.BorderColor3 = Color3.fromRGB(150, 150, 150)
+    playerDropdownFrame.BorderColor3 = Color3.fromRGB(50, 50, 50) 
     playerDropdownFrame.Parent = playerDropdown
 
     local dropdownLabel = Instance.new("TextLabel")
@@ -27,7 +27,7 @@ local function createPlayerMenu(players)
     dropdownLabel.Size = UDim2.new(1, 0, 1, 0)
     dropdownLabel.Position = UDim2.new(0, 0, 0, 0)
     dropdownLabel.Text = "Select a player:"
-    dropdownLabel.TextColor3 = Color3.fromRGB(0, 0, 0)
+    dropdownLabel.TextColor3 = Color3.fromRGB(255, 255, 255) 
     dropdownLabel.BackgroundTransparency = 1
     dropdownLabel.Font = Enum.Font.SourceSansBold
     dropdownLabel.TextSize = 14
@@ -37,10 +37,10 @@ local function createPlayerMenu(players)
     dropdown.Name = "Dropdown"
     dropdown.Size = UDim2.new(1, 0, 1, 0)
     dropdown.Position = UDim2.new(0, 0, 1, 0)
-    dropdown.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    dropdown.BackgroundColor3 = Color3.fromRGB(50, 50, 50) 
     dropdown.BorderSizePixel = 0
     dropdown.Text = "Click to select"
-    dropdown.TextColor3 = Color3.fromRGB(0, 0, 0)
+    dropdown.TextColor3 = Color3.fromRGB(255, 255, 255) 
     dropdown.TextScaled = true
     dropdown.Parent = playerDropdownFrame
 
@@ -48,9 +48,9 @@ local function createPlayerMenu(players)
     dropdownList.Name = "DropdownList"
     dropdownList.Size = UDim2.new(1, 0, 0, 0)
     dropdownList.Position = UDim2.new(0, 0, 1, 0)
-    dropdownList.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    dropdownList.BackgroundColor3 = Color3.fromRGB(50, 50, 50) 
     dropdownList.BorderSizePixel = 2
-    dropdownList.BorderColor3 = Color3.fromRGB(150, 150, 150)
+    dropdownList.BorderColor3 = Color3.fromRGB(100, 100, 100) 
     dropdownList.Visible = false
     dropdownList.Parent = playerDropdownFrame
 
@@ -60,10 +60,10 @@ local function createPlayerMenu(players)
             dropdownItem.Name = player.Name
             dropdownItem.Size = UDim2.new(1, 0, 0, 30)
             dropdownItem.Position = UDim2.new(0, 0, 0, (30 * #dropdownList:GetChildren()))
-            dropdownItem.BackgroundColor3 = Color3.fromRGB(240, 240, 240)
+            dropdownItem.BackgroundColor3 = Color3.fromRGB(50, 50, 50) 
             dropdownItem.BorderSizePixel = 0
             dropdownItem.Text = player.Name
-            dropdownItem.TextColor3 = Color3.fromRGB(0, 0, 0)
+            dropdownItem.TextColor3 = Color3.fromRGB(255, 255, 255)
             dropdownItem.Font = Enum.Font.SourceSans
             dropdownItem.TextSize = 14
             dropdownItem.Parent = dropdownList
@@ -146,6 +146,21 @@ local function createPlayerMenu(players)
     game:GetService("UserInputService").InputChanged:Connect(function(input)
         if input == dragInput and dragging then
             update(input)
+        end
+    end)
+
+    game:GetService("UserInputService").InputBegan:Connect(function(input)
+        if input.KeyCode == Enum.KeyCode.LeftAlt then
+            playerDropdown.Enabled = not playerDropdown.Enabled
+        elseif input.UserInputType == Enum.UserInputType.MouseButton1 and dropdownList.Visible then
+            local mousePos = input.Position
+            local dropdownPos = playerDropdownFrame.AbsolutePosition
+            local dropdownSize = playerDropdownFrame.AbsoluteSize
+
+            if mousePos.X < dropdownPos.X or mousePos.X > dropdownPos.X + dropdownSize.X or
+                mousePos.Y < dropdownPos.Y or mousePos.Y > dropdownPos.Y + dropdownSize.Y then
+                dropdownList.Visible = false
+            end
         end
     end)
 end
