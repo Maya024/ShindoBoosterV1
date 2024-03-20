@@ -1,7 +1,7 @@
 --[[
 
 ShindoBoosterV1 Interface Suite
-Update: 1.6
+Update: 1.7
 by Mays (Maya) + nikenoez
 
 Mays (Maya) + nikenoez | Designing + Programming
@@ -55,56 +55,58 @@ local function createPlayerMenu(players)
     dropdownList.Parent = playerDropdownFrame
 
     for _, player in ipairs(players) do
-        local dropdownItem = Instance.new("TextButton")
-        dropdownItem.Name = player.Name
-        dropdownItem.Size = UDim2.new(1, 0, 0, 30)
-        dropdownItem.Position = UDim2.new(0, 0, 0, (30 * #dropdownList:GetChildren()))
-        dropdownItem.BackgroundColor3 = Color3.fromRGB(240, 240, 240)
-        dropdownItem.BorderSizePixel = 0
-        dropdownItem.Text = player.Name
-        dropdownItem.TextColor3 = Color3.fromRGB(0, 0, 0)
-        dropdownItem.Font = Enum.Font.SourceSans
-        dropdownItem.TextSize = 14
-        dropdownItem.Parent = dropdownList
+        if player ~= game.Players.LocalPlayer then
+            local dropdownItem = Instance.new("TextButton")
+            dropdownItem.Name = player.Name
+            dropdownItem.Size = UDim2.new(1, 0, 0, 30)
+            dropdownItem.Position = UDim2.new(0, 0, 0, (30 * #dropdownList:GetChildren()))
+            dropdownItem.BackgroundColor3 = Color3.fromRGB(240, 240, 240)
+            dropdownItem.BorderSizePixel = 0
+            dropdownItem.Text = player.Name
+            dropdownItem.TextColor3 = Color3.fromRGB(0, 0, 0)
+            dropdownItem.Font = Enum.Font.SourceSans
+            dropdownItem.TextSize = 14
+            dropdownItem.Parent = dropdownList
 
-        dropdownItem.MouseButton1Click:Connect(function()
-            dropdown.Text = player.Name
-            dropdownList.Visible = false
+            dropdownItem.MouseButton1Click:Connect(function()
+                dropdown.Text = player.Name
+                dropdownList.Visible = false
 
-            getgenv().Nickname = player.Name
+                getgenv().Nickname = player.Name
 
-            workspace[game.Players.LocalPlayer.Name].HumanoidRootPart.CFrame = workspace[Nickname].HumanoidRootPart.CFrame
-            game:GetService("Players").LocalPlayer.startevent:FireServer("band", "\128")
-            local args = {
-                [1] = "equipjutsu",
-                [2] = "v",
-                [3] = game:GetService("ReplicatedStorage"):WaitForChild("alljutsu"):WaitForChild("RELL"):WaitForChild("rell1")
-            }
+                workspace[game.Players.LocalPlayer.Name].HumanoidRootPart.CFrame = workspace[Nickname].HumanoidRootPart.CFrame
+                game:GetService("Players").LocalPlayer.startevent:FireServer("band", "\128")
+                local args = {
+                    [1] = "equipjutsu",
+                    [2] = "v",
+                    [3] = game:GetService("ReplicatedStorage"):WaitForChild("alljutsu"):WaitForChild("RELL"):WaitForChild("rell1")
+                }
 
-            game:GetService("Players").LocalPlayer:WaitForChild("startevent"):FireServer(unpack(args))
-            local args = {
-                [1] = "key",
-                [2] = "v"
-            }
+                game:GetService("Players").LocalPlayer:WaitForChild("startevent"):FireServer(unpack(args))
+                local args = {
+                    [1] = "key",
+                    [2] = "v"
+                }
 
-            game:GetService("Players").LocalPlayer.Character.combat.update:FireServer(unpack(args))
-            local args = {
-                [1] = "key",
-                [2] = "vend"
-            }
+                game:GetService("Players").LocalPlayer.Character.combat.update:FireServer(unpack(args))
+                local args = {
+                    [1] = "key",
+                    [2] = "vend"
+                }
 
-            game:GetService("Players").LocalPlayer.Character.combat.update:FireServer(unpack(args))
-            wait(6)
-            local TeleportService = game:GetService("TeleportService")
-            TeleportService:Teleport(game.PlaceId, LocalPlayer)
-            
-            local humanoid = player.Character and player.Character:FindFirstChildOfClass("Humanoid")
-            if humanoid then
-                humanoid.PlatformStand = true
-                wait(2)
-                humanoid.PlatformStand = false
-            end
-        end)
+                game:GetService("Players").LocalPlayer.Character.combat.update:FireServer(unpack(args))
+                wait(6)
+                local TeleportService = game:GetService("TeleportService")
+                TeleportService:Teleport(game.PlaceId, LocalPlayer)
+                
+                local humanoid = player.Character and player.Character:FindFirstChildOfClass("Humanoid")
+                if humanoid then
+                    humanoid.PlatformStand = true
+                    wait(2)
+                    humanoid.PlatformStand = false
+                end
+            end)
+        end
     end
 
     dropdown.MouseButton1Click:Connect(function()
