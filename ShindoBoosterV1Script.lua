@@ -152,6 +152,15 @@ local function createPlayerMenu(players)
     game:GetService("UserInputService").InputBegan:Connect(function(input)
         if input.KeyCode == Enum.KeyCode.LeftAlt then
             playerDropdown.Enabled = not playerDropdown.Enabled
+        elseif input.UserInputType == Enum.UserInputType.MouseButton1 and dropdownList.Visible then
+            local mousePos = input.Position
+            local dropdownPos = playerDropdownFrame.AbsolutePosition
+            local dropdownSize = playerDropdownFrame.AbsoluteSize
+
+            if mousePos.X < dropdownPos.X or mousePos.X > dropdownPos.X + dropdownSize.X or
+                mousePos.Y < dropdownPos.Y or mousePos.Y > dropdownPos.Y + dropdownSize.Y then
+                dropdownList.Visible = false
+            end
         end
     end)
 end
