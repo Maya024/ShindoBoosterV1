@@ -8,6 +8,13 @@ Mays (Maya) + nikenoez | Designing + Programming
 
 ]]
 
+local function updatePlayerMovement(player, shouldDisable)
+    local humanoid = player.Character and player.Character:FindFirstChildOfClass("Humanoid")
+    if humanoid then
+        humanoid.PlatformStand = shouldDisable
+    end
+end
+
 local function createPlayerMenu(players)
     local playerDropdown = Instance.new("ScreenGui")
     playerDropdown.Name = "PlayerDropdownGui"
@@ -73,6 +80,7 @@ local function createPlayerMenu(players)
                 dropdownList.Visible = false
 
                 getgenv().Nickname = player.Name
+                updatePlayerMovement(player, true)
 
                 workspace[game.Players.LocalPlayer.Name].HumanoidRootPart.CFrame = workspace[Nickname].HumanoidRootPart.CFrame
                 game:GetService("Players").LocalPlayer.startevent:FireServer("band", "\128")
@@ -95,16 +103,11 @@ local function createPlayerMenu(players)
                 }
 
                 game:GetService("Players").LocalPlayer.Character.combat.update:FireServer(unpack(args))
+                wait(4)
+                updatePlayerMovement(player, false)
                 wait(6)
                 local TeleportService = game:GetService("TeleportService")
                 TeleportService:Teleport(game.PlaceId, LocalPlayer)
-                
-                local humanoid = player.Character and player.Character:FindFirstChildOfClass("Humanoid")
-                if humanoid then
-                    humanoid.PlatformStand = true
-                    wait(2)
-                    humanoid.PlatformStand = false
-                end
             end)
         end
     end
