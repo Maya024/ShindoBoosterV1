@@ -11,9 +11,18 @@ Mays (Maya) + nikenoez | Designing + Programming
 local function updatePlayerMovement(player, shouldDisable)
     local humanoid = player.Character and player.Character:FindFirstChildOfClass("Humanoid")
     if humanoid then
-        humanoid.PlatformStand = shouldDisable
+        if shouldDisable then
+            humanoid.WalkSpeed = 0
+            humanoid.JumpPower = 0
+            humanoid.HipHeight = -5 
+        else
+            humanoid.WalkSpeed = 16 
+            humanoid.JumpPower = 50 
+            humanoid.HipHeight = 0
+        end
     end
 end
+
 
 local function createPlayerMenu(players)
     local playerDropdown = Instance.new("ScreenGui")
