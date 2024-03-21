@@ -1,7 +1,7 @@
 --[[
 
-ShindoBoosterV1 Interface Suite
-Update: 1.8
+ShindoBoosterV1 Interface Beta
+Update: 1.9
 by Mays (Maya) + nikenoez
 
 Mays (Maya) + nikenoez | Designing + Programming
@@ -31,7 +31,7 @@ local function createPlayerMenu(players)
 
     local playerDropdownFrame = Instance.new("Frame")
     playerDropdownFrame.Name = "PlayerDropdownFrame"
-    playerDropdownFrame.Size = UDim2.new(0, 400, 0, 300)
+    playerDropdownFrame.Size = UDim2.new(0, 200, 0, 200)
     playerDropdownFrame.Position = UDim2.new(0.5, -200, 0.5, -150)
     playerDropdownFrame.BackgroundColor3 = Color3.fromRGB(30, 30, 30) 
     playerDropdownFrame.BorderSizePixel = 0
