@@ -25,7 +25,7 @@ local function createMainMenu()
 
     spinsRCsButton.MouseButton1Click:Connect(function()
         local success, script = pcall(function()
-            return loadstring(game:HttpGet("https://raw.githubusercontent.com/Maya024/ShindoBoosterV1/ShindoLife2/ShindoBoosterV1Script.lua"))
+            return loadstring(game:HttpGet("https://raw.githubusercontent.com/Maya024/ShindoBoosterV1/ShindoLife2/ShindoLifeRELLBlScript/ShindoBoosterV1Script/ShindoBoosterV1Script.lua"))
         end)
 
         if success and script then
