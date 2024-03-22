@@ -1,3 +1,13 @@
+--[[
+
+ShindoBoosterV1 Interface Beta
+Update: 1.9 fix
+by Mays (Maya) + nikenoez
+
+Mays (Maya) + nikenoez | Designing + Programming
+
+]]
+
 local function createMainMenu()
     local mainMenu = Instance.new("ScreenGui")
     mainMenu.Name = "MainMenu"
