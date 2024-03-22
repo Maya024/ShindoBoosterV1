@@ -1,12 +1,16 @@
+
 --[[
 
 ShindoBoosterV1 Interface Beta
-Update: 1.9
+Update: 1.9 fix
 by Mays (Maya) + nikenoez
 
 Mays (Maya) + nikenoez | Designing + Programming
 
 ]]
+
+
+-- Player Movement --
 
 local function updatePlayerMovement(player, shouldDisable)
     local humanoid = player.Character and player.Character:FindFirstChildOfClass("Humanoid")
@@ -23,7 +27,59 @@ local function updatePlayerMovement(player, shouldDisable)
     end
 end
 
+-- Loading Screen --
+local loadingScreen = Instance.new("ScreenGui")
+loadingScreen.Name = "LoadingScreen"
+loadingScreen.IgnoreGuiInset = true
+loadingScreen.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui") 
 
+local loadingBackground = Instance.new("Frame")
+loadingBackground.Name = "LoadingBackground"
+loadingBackground.Size = UDim2.new(0.5, 0, 0.5, 0)
+loadingBackground.Position = UDim2.new(0.5, 0, 0.5, 0) 
+loadingBackground.AnchorPoint = Vector2.new(0.5, 0.5)
+loadingBackground.BackgroundColor3 = Color3.fromRGB(30, 30, 30) 
+loadingBackground.BorderSizePixel = 0
+loadingBackground.Parent = loadingScreen
+
+local loadingTopLeftText = Instance.new("TextLabel")
+loadingTopLeftText.Name = "LoadingTopLeftText"
+loadingTopLeftText.Size = UDim2.new(0.5, 0, 0.1, 0)
+loadingTopLeftText.Position = UDim2.new(0, 5, 0, 5)
+loadingTopLeftText.BackgroundTransparency = 1
+loadingTopLeftText.Font = Enum.Font.SourceSansBold
+loadingTopLeftText.TextSize = 18
+loadingTopLeftText.TextColor3 = Color3.fromRGB(255, 255, 255) 
+loadingTopLeftText.Text = "♾️ShindoBoosterV1♾️"
+loadingTopLeftText.TextXAlignment = Enum.TextXAlignment.Left
+loadingTopLeftText.Parent = loadingBackground
+
+local loadingBottomRightText = Instance.new("TextLabel")
+loadingBottomRightText.Name = "LoadingBottomRightText"
+loadingBottomRightText.Size = UDim2.new(0.5, 0, 0.1, 0)
+loadingBottomRightText.Position = UDim2.new(1, -274, 1, -40)
+loadingBottomRightText.BackgroundTransparency = 1
+loadingBottomRightText.Font = Enum.Font.SourceSansBold
+loadingBottomRightText.TextSize = 14
+loadingBottomRightText.TextColor3 = Color3.fromRGB(255, 255, 255) 
+loadingBottomRightText.Text = "Version: 1.9"
+loadingBottomRightText.TextXAlignment = Enum.TextXAlignment.Right
+loadingBottomRightText.TextYAlignment = Enum.TextYAlignment.Bottom
+loadingBottomRightText.Parent = loadingBackground
+
+local loadingText = Instance.new("TextLabel")
+loadingText.Name = "LoadingText"
+loadingText.Size = UDim2.new(1, 0, 0.6, 0)
+loadingText.Position = UDim2.new(0, 0, 0.2, 0)
+loadingText.BackgroundTransparency = 1
+loadingText.Font = Enum.Font.SourceSansBold
+loadingText.TextSize = 24
+loadingText.TextColor3 = Color3.fromRGB(255, 255, 255) 
+loadingText.Text = "Loading"
+loadingText.Parent = loadingBackground
+
+
+-- Script Menu -- 
 local function createPlayerMenu(players)
     local playerDropdown = Instance.new("ScreenGui")
     playerDropdown.Name = "PlayerDropdownGui"
@@ -115,6 +171,8 @@ local function createPlayerMenu(players)
         end
     end
 
+-- Functions ---
+
     local dragging
     local dragInput
     local dragStart
@@ -153,12 +211,13 @@ local function createPlayerMenu(players)
 end
 
 
+-- Main --
 
 getgenv().toggle25 = true
 getgenv().Nickname = "PlayerName"
 repeat wait() until game:GetService("Players").PlayerAdded and getgenv().toggle25 == true
-wait(1.5)
-
+wait(3)
+loadingScreen:Destroy()
+wait(1)
 local examplePlayers = game.Players:GetPlayers()
-
 createPlayerMenu(examplePlayers)
