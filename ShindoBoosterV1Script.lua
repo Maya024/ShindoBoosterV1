@@ -1,33 +1,19 @@
-
 --[[
 
 ShindoBoosterV1 Interface Beta
 Update: 1.9 fix
-by Mays (Maya) + nikenoez
+by Mays (Maya) + nikenoez + dell_noa
 
 Mays (Maya) + nikenoez | Designing + Programming
 
 ]]
 
 
--- Player Movement --
 
-local function updatePlayerMovement(player, shouldDisable)
-    local humanoid = player.Character and player.Character:FindFirstChildOfClass("Humanoid")
-    if humanoid then
-        if shouldDisable then
-            humanoid.WalkSpeed = 0
-            humanoid.JumpPower = 0
-            humanoid.HipHeight = -5 
-        else
-            humanoid.WalkSpeed = 16 
-            humanoid.JumpPower = 50 
-            humanoid.HipHeight = 0
-        end
-    end
-end
 
--- Loading Screen --
+if game.PlaceId == 4616652839 then
+
+-- Loading screen
 local loadingScreen = Instance.new("ScreenGui")
 loadingScreen.Name = "LoadingScreen"
 loadingScreen.IgnoreGuiInset = true
@@ -79,7 +65,7 @@ loadingText.Text = "Loading"
 loadingText.Parent = loadingBackground
 
 
--- Script Menu -- 
+-- Script menu
 local function createPlayerMenu(players)
     local playerDropdown = Instance.new("ScreenGui")
     playerDropdown.Name = "PlayerDropdownGui"
@@ -121,6 +107,7 @@ local function createPlayerMenu(players)
     playerListLayout.Padding = UDim.new(0, 5)
     playerListLayout.Parent = playerListScrollingFrame
 
+    -- Teleport to the player
     for _, player in ipairs(players) do
         if player ~= game.Players.LocalPlayer then
             local playerButton = Instance.new("TextButton")
@@ -135,9 +122,7 @@ local function createPlayerMenu(players)
             playerButton.Parent = playerListScrollingFrame
 
             playerButton.MouseButton1Click:Connect(function()
-                playerButton.Text = player.Name
                 playerButton.Visible = false
-
                 getgenv().Nickname = player.Name
                 updatePlayerMovement(player, true)
 
@@ -171,8 +156,8 @@ local function createPlayerMenu(players)
         end
     end
 
--- Functions ---
-
+    -- Functions for moving the UI
+ 
     local dragging
     local dragInput
     local dragStart
@@ -211,7 +196,7 @@ local function createPlayerMenu(players)
 end
 
 
--- Main --
+-- Main script
 
 getgenv().toggle25 = true
 getgenv().Nickname = "PlayerName"
@@ -221,3 +206,46 @@ loadingScreen:Destroy()
 wait(1)
 local examplePlayers = game.Players:GetPlayers()
 createPlayerMenu(examplePlayers)
+
+else
+    -- GameNotStartedGui
+    local gui = Instance.new("ScreenGui")
+    gui.Name = "GameNotStartedGui"
+    gui.IgnoreGuiInset = true
+
+    local frame = Instance.new("Frame")
+    frame.Size = UDim2.new(0.5, 0, 0.5, 0)
+    frame.Position = UDim2.new(0.5, 0, 0.5, 0)
+    frame.AnchorPoint = Vector2.new(0.5, 0.5)
+    frame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+    frame.BorderSizePixel = 0
+    frame.Parent = gui
+
+    local textLabel = Instance.new("TextLabel")
+    textLabel.Size = UDim2.new(1, 0, 0.8, 0)
+    textLabel.Position = UDim2.new(0, 0, 0.1, 0)
+    textLabel.BackgroundTransparency = 1
+    textLabel.Font = Enum.Font.SourceSansBold
+    textLabel.TextSize = 24
+    textLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+    textLabel.Text = "This script can only be started in Shindo life 2!"
+    textLabel.Parent = frame
+
+    local okButton = Instance.new("TextButton")
+    okButton.Size = UDim2.new(0.6, 0, 0.1, 0)
+    okButton.Position = UDim2.new(0.5, -okButton.Size.X.Offset / 2, 0.9, 0)
+    okButton.AnchorPoint = Vector2.new(0.5, 0)
+    okButton.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+    okButton.BorderSizePixel = 0
+    okButton.Font = Enum.Font.SourceSansBold
+    okButton.TextSize = 20
+    okButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+    okButton.Text = "OK"
+    okButton.Parent = frame
+
+    okButton.MouseButton1Click:Connect(function()
+        gui:Destroy()
+    end)
+
+    gui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+end
