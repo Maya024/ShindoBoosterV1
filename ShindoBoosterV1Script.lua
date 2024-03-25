@@ -228,7 +228,7 @@ else
     textLabel.Font = Enum.Font.SourceSansBold
     textLabel.TextSize = 24
     textLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-    textLabel.Text = "This script can only be started in Shindo life 2!"
+    textLabel.Text = "This script can only be started in Shindo life 2! PlaceId: " .. game.PlaceId
     textLabel.Parent = frame
 
     local okButton = Instance.new("TextButton")
