@@ -8,11 +8,6 @@ Mays (Maya) + nikenoez | Designing + Programming
 
 ]]
 
-
-
-
-if game.PlaceId == 4616652839 then
-
 -- Loading screen
 local loadingScreen = Instance.new("ScreenGui")
 loadingScreen.Name = "LoadingScreen"
@@ -206,46 +201,3 @@ loadingScreen:Destroy()
 wait(1)
 local examplePlayers = game.Players:GetPlayers()
 createPlayerMenu(examplePlayers)
-
-else
-    -- GameNotStartedGui
-    local gui = Instance.new("ScreenGui")
-    gui.Name = "GameNotStartedGui"
-    gui.IgnoreGuiInset = true
-
-    local frame = Instance.new("Frame")
-    frame.Size = UDim2.new(0.5, 0, 0.5, 0)
-    frame.Position = UDim2.new(0.5, 0, 0.5, 0)
-    frame.AnchorPoint = Vector2.new(0.5, 0.5)
-    frame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
-    frame.BorderSizePixel = 0
-    frame.Parent = gui
-
-    local textLabel = Instance.new("TextLabel")
-    textLabel.Size = UDim2.new(1, 0, 0.8, 0)
-    textLabel.Position = UDim2.new(0, 0, 0.1, 0)
-    textLabel.BackgroundTransparency = 1
-    textLabel.Font = Enum.Font.SourceSansBold
-    textLabel.TextSize = 24
-    textLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-    textLabel.Text = "This script can only be started in Shindo life 2! PlaceId: " .. game.PlaceId
-    textLabel.Parent = frame
-
-    local okButton = Instance.new("TextButton")
-    okButton.Size = UDim2.new(0.6, 0, 0.1, 0)
-    okButton.Position = UDim2.new(0.5, -okButton.Size.X.Offset / 2, 0.9, 0)
-    okButton.AnchorPoint = Vector2.new(0.5, 0)
-    okButton.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-    okButton.BorderSizePixel = 0
-    okButton.Font = Enum.Font.SourceSansBold
-    okButton.TextSize = 20
-    okButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-    okButton.Text = "OK"
-    okButton.Parent = frame
-
-    okButton.MouseButton1Click:Connect(function()
-        gui:Destroy()
-    end)
-
-    gui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
-end
