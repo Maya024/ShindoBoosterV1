@@ -189,7 +189,6 @@ local function createPlayerMenu(players)
     end    
 
     -- Functions for moving the UI
- 
     local dragging
     local dragInput
     local dragStart
