@@ -141,7 +141,7 @@ local function createPlayerMenu(players)
                 }
 
                 game:GetService("Players").LocalPlayer.Character.combat.update:FireServer(unpack(args))
-                wait(2)
+                wait(7)
                 local TeleportService = game:GetService("TeleportService")
                 TeleportService:Teleport(game.PlaceId, game.Players.LocalPlayer)
             end)
