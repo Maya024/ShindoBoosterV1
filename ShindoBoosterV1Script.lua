@@ -1,7 +1,7 @@
 --[[
 
 ShindoBoosterV1 Interface Beta
-Update: 2.0 fix
+Update: 1.9 fix
 by Mays (Maya) + nikenoez
 
 Mays (Maya) + nikenoez | Designing + Programming
@@ -187,72 +187,48 @@ local function createPlayerMenu(players)
             end)            
         end
     end    
-end
 
--- Functions for moving the UI
-local dragging = false
-local dragInput
-local dragStart
-local startPos
+    -- Functions for moving the UI
+    local dragging
+    local dragInput
+    local dragStart
+    local startPos
 
-local function update(input)
-    local delta = input.Position - dragStart
-    playerDropdownFrame.Position = UDim2.new(
-        startPos.X.Scale,
-        startPos.X.Offset + delta.X,
-        startPos.Y.Scale,
-        startPos.Y.Offset + delta.Y
-    )
-end
+    local function update(input)
+        local delta = input.Position - dragStart
+        playerDropdownFrame.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+    end
 
-local function enableDragging()
-    dragging = true
-    dragStart = dragInput.Position
-    startPos = playerDropdownFrame.Position
+    playerDropdownFrame.InputBegan:Connect(function(input)
+        if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+            dragging = true
+            dragStart = input.Position
+            startPos = playerDropdownFrame.Position
 
-    dragInput.Changed:Connect(function()
-        if dragInput.UserInputState == Enum.UserInputState.End then
-            dragging = false
+            input.Changed:Connect(function()
+                if input.UserInputState == Enum.UserInputState.End then
+                    dragging = false
+                end
+            end)
+        end
+    end)
+
+    playerDropdownFrame.InputChanged:Connect(function(input)
+        if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+            dragInput = input
+        end
+    end)
+
+    game:GetService("UserInputService").InputChanged:Connect(function(input)
+        if input == dragInput and dragging then
+            update(input)
         end
     end)
 end
 
-local function disableDragging()
-    dragging = false
-end
-
-local playerDropdownFrame = playerDropdown:WaitForChild("PlayerDropdownFrame")
-
-playerDropdownFrame.InputBegan:Connect(function(input)
-    if input.UserInputType == Enum.UserInputType.MouseButton1 then
-        enableDragging()
-    end
-end)
-
-playerDropdownFrame.InputChanged:Connect(function(input)
-    if input.UserInputType == Enum.UserInputType.MouseMovement then
-        dragInput = input
-        if dragging then
-            update(input)
-        end
-    end
-end)
-
-game:GetService("UserInputService").TouchPan:Connect(function(input, gameProcessed)
-    if not gameProcessed then
-        dragInput = input
-        if input.UserInputState == Enum.UserInputState.Begin then
-            enableDragging()
-        elseif input.UserInputState == Enum.UserInputState.End then
-            disableDragging()
-        end
-        update(input)
-    end
-end)
-
 
 -- Main script
-getgenv().togg le25 = true
+getgenv().toggle25 = true
 getgenv().Nickname = "PlayerName"
 repeat wait() until game:GetService("Players").PlayerAdded and getgenv().toggle25 == true
 wait(3)
