@@ -185,17 +185,19 @@ local function createPlayerMenu(players)
     end    
 
     -- Functions for moving the UI
-    local dragging
-    local dragInput
-    local dragStart
-    local startPos
+    local dragging = false
+    local dragInput = nil
+    local dragStart = nil
+    local startPos = nil
 
     local function update(input)
-        local delta = input.Position - dragStart
-        playerDropdownFrame.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+        if dragging and dragInput then
+            local delta = input.Position - dragStart
+            playerDropdownFrame.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+        end
     end
 
-    playerDropdownFrame.InputBegan:Connect(function(input)
+    local function onMouseTouchStart(input)
         if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
             dragging = true
             dragStart = input.Position
@@ -207,19 +209,17 @@ local function createPlayerMenu(players)
                 end
             end)
         end
-    end)
+    end
 
-    playerDropdownFrame.InputChanged:Connect(function(input)
+    local function onMouseTouchMoved(input)
         if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
             dragInput = input
         end
-    end)
+    end
 
-    game:GetService("UserInputService").InputChanged:Connect(function(input)
-        if input == dragInput and dragging then
-            update(input)
-        end
-    end)
+    playerDropdownFrame.InputBegan:Connect(onMouseTouchStart)
+    playerDropdownFrame.InputChanged:Connect(onMouseTouchMoved)
+    game:GetService("UserInputService").InputChanged:Connect(update)
 end
 
 
