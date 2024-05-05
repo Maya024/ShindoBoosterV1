@@ -1,10 +1,10 @@
 --[[
 
 ShindoBoosterV1 Interface Beta
-Update: 1.9 fix
-by Mays (Maya) + nikenoez
+Update: 2.1 fix
+by Mays (Maya)
 
-Mays (Maya) + nikenoez | Designing + Programming
+Mays (Maya) | Designing + Programming
 
 ]]
 
