@@ -106,6 +106,6 @@ button1.MouseButton1Click:Connect(function()
 end)
 
 button2.MouseButton1Click:Connect(function()
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/Maya024/ShindoBoosterV1/ShindoLife2/Scripts/RyoGiver.lua"))()
+    loadstring(game:HttpGet("xxx"))()
     menuScreen:Destroy()
 end)
