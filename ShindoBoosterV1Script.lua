@@ -87,25 +87,7 @@ button1.TextColor3 = Color3.fromRGB(255, 255, 255)
 button1.Text = "RC Giver"
 button1.Parent = menuBackground
 
-local button2 = Instance.new("TextButton")
-button2.Name = "RYO"
-button2.Size = UDim2.new(0.8, 0, 0.2, 0)
-button2.Position = UDim2.new(0.5, 0, 0.7, 0)
-button2.AnchorPoint = Vector2.new(0.5, 0)
-button2.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
-button2.BorderSizePixel = 0
-button2.Font = Enum.Font.SourceSansBold
-button2.TextSize = 18
-button2.TextColor3 = Color3.fromRGB(255, 255, 255)
-button2.Text = "Ryo Timer"
-button2.Parent = menuBackground
-
 button1.MouseButton1Click:Connect(function()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/Maya024/ShindoBoosterV1/ShindoLife2/Scripts/RcGiver.lua"))()
-    menuScreen:Destroy()
-end)
-
-button2.MouseButton1Click:Connect(function()
-    loadstring(game:HttpGet("xxx"))()
     menuScreen:Destroy()
 end)
