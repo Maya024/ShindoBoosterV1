@@ -102,9 +102,10 @@ button2.Parent = menuBackground
 
 button1.MouseButton1Click:Connect(function()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/Maya024/ShindoBoosterV1/ShindoLife2/Scripts/RcGiver.lua"))()
+    menuScreen:Destroy()
 end)
 
 button2.MouseButton1Click:Connect(function()
-    
     loadstring(game:HttpGet("https://raw.githubusercontent.com/Maya024/ShindoBoosterV1/ShindoLife2/Scripts/RyoGiver.lua"))()
+    menuScreen:Destroy()
 end)
