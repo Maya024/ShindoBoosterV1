@@ -1,4 +1,13 @@
--- Script menu
+--[[
+
+ShindoBoosterV1 Interface Beta
+Update: 2.0
+by Mays (Maya)
+
+Mays (Maya) | Designing + Programming
+
+]]
+
 local function createPlayerMenu(players)
     local playerDropdown = Instance.new("ScreenGui")
     playerDropdown.Name = "PlayerDropdownGui"
@@ -59,9 +68,6 @@ local function createPlayerMenu(players)
 
                 local allJutsu = game:GetService("ReplicatedStorage"):WaitForChild("alljutsu")
                 if allJutsu:FindFirstChild("RELL") then
-                    workspace[game.Players.LocalPlayer.Name].HumanoidRootPart.CFrame = workspace[Nickname].HumanoidRootPart.CFrame
-                    game:GetService("Players").LocalPlayer.startevent:FireServer("band", "\128")
-                    
                     local args = {
                         [1] = "equipjutsu",
                         [2] = "v",
@@ -122,7 +128,6 @@ local function createPlayerMenu(players)
         end
     end    
 
-    -- Functions for moving the UI
     local dragging = false
     local dragInput = nil
     local dragStart = nil
@@ -160,8 +165,6 @@ local function createPlayerMenu(players)
     game:GetService("UserInputService").InputChanged:Connect(update)
 end
 
-
--- Main script
 getgenv().toggle25 = true
 getgenv().Nickname = "PlayerName"
 repeat wait() until game:GetService("Players").PlayerAdded and getgenv().toggle25 == true
